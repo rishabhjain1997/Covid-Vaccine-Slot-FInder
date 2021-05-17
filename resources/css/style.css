@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,100;1,300;1,400&display=swap');
+
+/* PREREQUISITES */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(0deg, rgba(26, 26, 26, 0.76), rgba(24, 24, 24, 0.801)), url('https://images.unsplash.com/photo-1608451643043-6a8eebc527ee?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+    height: 100vh;
+    background-size: cover;
+    font-family: Roboto, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* MAIN LAYOUT */
+
+.main-layout {
+    background: white;
+    max-width: 700px;
+    border-radius: 4px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: center;
+    margin: 0 20px;
+}
+
+
+/* HEADING */
+
+.heading {
+    align-self: center;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+}
+
+h1 {
+    margin-left: 10px;
+}
+
+
+/* DESCRIPTION */
+
+.description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.description h4,
+.description h5 {
+    display: inline-block;
+    align-self: center;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 150;
+    font-size: 85%;
+}
+
+.description h5 {
+    width: fit-content;
+    margin-top: 20px;
+    padding-bottom: 14px;
+    font-size: 80%;
+    border-bottom: 2px solid rgb(192, 192, 192);
+}
+
+.description p {
+    margin: 15px 0;
+    width: 85%;
+    font-size: 90%;
+    align-self: center;
+    text-align: center;
+    color: rgb(73, 73, 73);
+    margin-bottom: 20px;
+}
+
+
+/* MAIN FORM */
+
+#form-location {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* FORM SELECTOR BUTTONS*/
+
+.selector-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-search,
+.btn-search--selected {
+    margin: 0 5px;
+    padding: 4px 10px;
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 2px;
+    font-size: 80%;
+    background: white;
+    color: #e63c29;
+}
+
+.btn-search--selected {
+    color: white;
+    background: #e63c29;
+    border: none;
+}
+
+
+/* FORM INPUT ELEMENTS */
+
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 15px;
+    margin-bottom: 0;
+}
+
+.dropdown-search,
+#textbox-pincode {
+    padding: 7px 0;
+    padding-left: 5px;
+    margin-bottom: 15px;
+    border: 1px solid rgb(192, 192, 192);
+    background: white;
+    border-radius: 4px;
+}
+
+.option-placeholder {
+    color: rgb(192, 192, 192);
+}
+
+.textbox-remove,
+.dropdown-remove {
+    display: none;
+}
+
+
+/* SUBMIT BUTTON */
+
+.btn--submit {
+    align-self: center;
+    padding: 8px 15px;
+    color: white;
+    background: #e63c29;
+    border: none;
+    border-radius: 50px;
+    margin-bottom: 30px;
+}

@@ -1,1 +1,1 @@
-# Covid-Vaccine-Slot-FInder
+Vaccine Slot Finder

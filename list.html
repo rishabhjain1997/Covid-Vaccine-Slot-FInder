@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="resources/css/list-style.css">
+</head>
+
+<body>
+    <div class='main-layout'>
+        <header>
+            <span class="material-icons button--back">arrow_back</span>
+            <h3>Available slots</h3>
+        </header>
+        <form id='form-location'>
+            <div class='selector-buttons'>
+                <input class="btn-search btn-search--selected" name='districtButton' type="button" value="District" id='button-district'>
+                <input class="btn-search" name='pincodeButton' type="button" id='button-pincode' value="Pincode">
+            </div>
+
+            <div class='form-inputs'>
+                <select name='state' id='state-dropdown' class='dropdown-search'>
+                        
+                    </select>
+                <select name='district' id='district-dropdown' class='dropdown-search'>
+                        <option value="" class='option-placeholder' disabled selected>Select region</option>
+                    </select>
+                <input type='number' placeholder="Pincode" value='' name='pincode' id='textbox-pincode' class='textbox-remove'>
+            </div>
+
+        </form>
+        <section class='section--slots'>
+
+            <ul id='calendar'>
+
+            </ul>
+        </section>
+
+
+    </div>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+<script src="resources/js/requests.js"></script>
+<script src="resources/js/functions.js"></script>
+<script src="resources/js/list-app.js"></script>
+
+</html>

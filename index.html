@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/css/style.css">
+</head>
+
+<body>
+    <div class='main-layout'>
+        <div class='heading'>
+            <img class='logo' alt='logo' src='resources/img/icon.png'>
+            <h1>CoWinner</h1>
+        </div>
+
+        <div class='description'>
+            <h4>Created by Rishabh</h4>
+            <h5>Win your way through the pandemic</h5>
+            <p>Search for vaccination slots • Get notified when available on Whatsapp</p>
+        </div>
+        <form id='form-location'>
+            <div class='selector-buttons'>
+                <input class="btn-search btn-search--selected" name='districtButton' type="button" value="District" id='button-district'>
+                <input class="btn-search" name='pincodeButton' type="button" id='button-pincode' value="Pincode">
+            </div>
+            <div class='form-inputs'>
+                <select name='state' id='state-dropdown' class='dropdown-search'>
+                        
+                    </select>
+                <select name='district' id='district-dropdown' class='dropdown-search'>
+                        <option value="" class='option-placeholder' disabled selected>Select region</option>
+                    </select>
+                <input type='number' placeholder="Pincode" value='' name='pincode' id='textbox-pincode' class='textbox-remove'>
+            </div>
+            <input type='submit' class='btn--submit' value='Search slots'>
+        </form>
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+<script src="resources/js/requests.js"></script>
+<script src="resources/js/functions.js"></script>
+<script src="resources/js/app.js"></script>
+
+</html>
