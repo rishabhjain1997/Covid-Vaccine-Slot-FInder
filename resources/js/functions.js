@@ -103,13 +103,7 @@ const isPincodeSelected = () => {
 const createCalendar = async(context) => {
 
     const currentDate = moment()
-
-    if (context.isTypePincode) {
-        data = await getCalendarByPin(context.pincode, currentDate.format("DD-MM-YYYY"))
-    } else {
-        data = await getCalendarByDistrict(context.district, currentDate.format("DD-MM-YYYY"))
-        console.log(data)
-    }
+    const data = await getData(context, currentDate)
 
     let upcomingWeekDates = [currentDate.format("DD-MM-YYYY")]
     for (i = 0; i < 6; i++) {
@@ -201,23 +195,23 @@ const generateCalendarDateDOM = (sessions, date, context) => {
 }
 
 const omitNaN = (obj) => {
-    if (obj) {
-        return obj
-    } else {
-        return ''
+        if (obj) {
+            return obj
+        } else {
+            return ''
+        }
     }
+    // TODO Remove dateSelected and move to filter
+const filterCenter = (center, filter) => {
+    return (filterSession(center.sessions, filter)).length > 0
 }
 
-const filterCenter = (center, dateSelected) => {
-    return (filterSession(center.sessions, dateSelected)).length > 0
-}
-
-const filterSession = (sessions, dateSelected) => {
-    return sessions.filter((session) => (session.date === dateSelected))
+const filterSession = (sessions, filter) => {
+    return sessions.filter((session) => (session.date === filter.date))
 }
 
 
-const generateCenterDOM = (center, dateSelected) => {
+const generateCenterDOM = (center, filter) => {
     /*
     cardEl> availabilityInfoEl> availabilityBoxEl >availabilityTextEl 
                               > bookingLinkEl
@@ -276,7 +270,7 @@ const generateCenterDOM = (center, dateSelected) => {
     centerNameEl.textContent = cleanCenterName(center.name)
     centerBlockNameEl.textContent = `${center.block_name}, `
     centerPincodeEl.textContent = center.pincode
-    const filteredSession = filterSession(center.sessions, dateSelected)[0]
+    const filteredSession = filterSession(center.sessions, filter)[0]
 
     minAgeEl.textContent = `${filteredSession.min_age_limit}+`
     vaccineNameEl.textContent = `Vaccine: ${filteredSession.vaccine}`
@@ -300,10 +294,6 @@ const generateCenterDOM = (center, dateSelected) => {
         bookingLinkEl.classList.add('green-background')
         cardEl.href = 'https://www.cowin.gov.in/'
     }
-
-
-
-
     return cardEl
 }
 
@@ -312,14 +302,41 @@ const cleanCenterName = (name) => {
 }
 
 
-const createDetail = async(context) => {
+const createAppointmentList = async(context, filter) => {
 
-    const districtId = context.district
-    const pincode = context.pincode
-    const dateSelected = context.date.format('DD-MM-YYYY')
+    const data = await getData(context)
+    renderAppointments(data, filter)
+
+
+}
+
+const renderAppointments = async(data, filter) => {
 
     const appointmentListEl = document.querySelector('#appointments')
     appointmentListEl.innerHTML = ''
+
+    for (center of data['centers']) {
+
+        if (filterCenter(center, filter)) {
+
+            const cardEl = generateCenterDOM(center, filter)
+            appointmentListEl.appendChild(cardEl)
+
+        }
+    }
+}
+
+const getData = async(context, dateSelected = null) => {
+
+    const districtId = context.district
+    const pincode = context.pincode
+
+    if (!dateSelected) {
+        dateSelected = context.date.format('DD-MM-YYYY')
+    } else {
+        dateSelected = dateSelected.format('DD-MM-YYYY')
+    }
+
     let data
     if (context.isTypePincode) {
         data = await getCalendarByPin(pincode, dateSelected)
@@ -327,18 +344,5 @@ const createDetail = async(context) => {
         data = await getCalendarByDistrict(districtId, dateSelected)
     }
 
-    console.log(data)
-
-
-    for (center of data['centers']) {
-
-        if (filterCenter(center, dateSelected)) {
-
-
-            const cardEl = generateCenterDOM(center, dateSelected)
-            appointmentListEl.appendChild(cardEl)
-
-        }
-    }
-
+    return data
 }
