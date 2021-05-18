@@ -311,44 +311,30 @@ const cleanCenterName = (name) => {
     return name.replace('45 YEARS', '').replace('18 YEARS', '').replace('18 TO 44 YEARS', '').replace('18 YEAR', '').replace('18 Years', '').replace('45 YEAR', '')
 }
 
-// TODO -Optimise the two createDetail methods
 
-const createDetailByDistrict = async(context) => {
+const createDetail = async(context) => {
 
-    console.log(context)
     const districtId = context.district
-    const dateSelected = context.date.format('DD-MM-YYYY')
-    const appointmentListEl = document.querySelector('#appointments')
-    appointmentListEl.innerHTML = ''
-    const data = await getCalendarByDistrict(districtId, dateSelected)
-    console.log(data)
-
-
-    for (center of data['centers']) {
-
-        if (filterCenter(center, dateSelected)) {
-
-
-            const cardEl = generateCenterDOM(center, dateSelected)
-            appointmentListEl.appendChild(cardEl)
-
-        }
-    }
-
-}
-
-const createDetailByPincode = async(context) => {
-
     const pincode = context.pincode
     const dateSelected = context.date.format('DD-MM-YYYY')
+
     const appointmentListEl = document.querySelector('#appointments')
     appointmentListEl.innerHTML = ''
-    const data = await getCalendarByPin(pincode, dateSelected)
+    let data
+    if (context.isTypePincode) {
+        data = await getCalendarByPin(pincode, dateSelected)
+    } else {
+        data = await getCalendarByDistrict(districtId, dateSelected)
+    }
+
     console.log(data)
 
 
     for (center of data['centers']) {
+
         if (filterCenter(center, dateSelected)) {
+
+
             const cardEl = generateCenterDOM(center, dateSelected)
             appointmentListEl.appendChild(cardEl)
 

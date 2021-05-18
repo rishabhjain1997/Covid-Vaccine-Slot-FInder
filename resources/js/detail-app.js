@@ -16,9 +16,11 @@ if (!isRequestValid) {
 }
 
 // Create unordered list
-if (isTypePincode) {
-    createDetailByPincode(context)
-} else {
-    //debugger
-    createDetailByDistrict(context)
-}
+// if (isTypePincode) {
+//     createDetailByPincode(context)
+// } else {
+//     //debugger
+//     createDetailByDistrict(context)
+// }
+
+createDetail(context)
