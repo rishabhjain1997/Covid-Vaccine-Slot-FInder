@@ -98,60 +98,39 @@ const isPincodeSelected = () => {
     return !pincodeTextboxEl.classList.contains('textbox-remove')
 }
 
-// TODO - Optimise the two  createListBy methods
-const createListByPincode = async(pincode, context) => {
 
-    const calendarListEl = document.querySelector('#calendar')
-    calendarListEl.innerHTML = ''
-        //Create array for the next 7 days
+
+const createCalendar = async(context) => {
+
+
+
+
     const currentDate = moment()
-    const data = await getCalendarByPin(pincode, currentDate.format("DD-MM-YYYY"))
+
+    if (context.isTypePincode) {
+        data = await getCalendarByPin(context.pincode, currentDate.format("DD-MM-YYYY"))
+    } else {
+        data = await getCalendarByDistrict(context.district, currentDate.format("DD-MM-YYYY"))
+        console.log(data)
+    }
+
     let upcomingWeekDates = [currentDate.format("DD-MM-YYYY")]
     for (i = 0; i < 6; i++) {
         upcomingWeekDates.push(currentDate.add(1, 'days').format("DD-MM-YYYY"))
 
     }
-
-
-    // Create array of all available vaccination sessions
-    let sessions = []
-    for (center of data['centers']) {
-
-        sessions.push(center.sessions)
-
-    }
-    sessions = sessions.flat()
-
-
-    // Append session data to unordered list
-    for (date of upcomingWeekDates) {
-        const dateEl = generateDateDOM(sessions, date, context)
-        calendarListEl.appendChild(dateEl)
-
-    }
-}
-
-const createListByDistrict = async(districtId, context) => {
-    const calendarListEl = document.querySelector('#calendar')
-    calendarListEl.innerHTML = ''
-
     //Create array for the next 7 days
-    const currentDate = moment()
-    const data = await getCalendarByDistrict(districtId, currentDate.format("DD-MM-YYYY"))
-    let upcomingWeekDates = [currentDate.format("DD-MM-YYYY")]
-    for (i = 0; i < 6; i++) {
-        upcomingWeekDates.push(currentDate.add(1, 'days').format("DD-MM-YYYY"))
-
-    }
-
-
-    // Create array of all available vaccination sessions
+    const calendarListEl = document.querySelector('#calendar')
+    calendarListEl.innerHTML = ''
+        // Create array of all available vaccination sessions
     let sessions = []
     for (center of data['centers']) {
 
         sessions.push(center.sessions)
 
     }
+
+    //This is where we should add filters
     sessions = sessions.flat()
 
     // Append session data to unordered list
@@ -161,6 +140,8 @@ const createListByDistrict = async(districtId, context) => {
 
     }
 }
+
+
 
 
 
@@ -289,15 +270,19 @@ const generateCenterDOM = (center, dateSelected) => {
 
 
     // Populate text
-    centerNameEl.textContent = (center.name)
+    centerNameEl.textContent = cleanCenterName(center.name)
     centerBlockNameEl.textContent = `${center.block_name}, `
     centerPincodeEl.textContent = center.pincode
     const filteredSession = filterSession(center.sessions, dateSelected)[0]
-    availabilityTextEl.textContent = filteredSession.available_capacity
+    availabilityTextEl.textContent = (filteredSession.available_capacity > 0) ? `${filteredSession.available_capacity} slots` : 'No slots'
     minAgeEl.textContent = `${filteredSession.min_age_limit}+`
     vaccineNameEl.textContent = `Vaccine: ${filteredSession.vaccine}`
 
     return cardEl
+}
+
+const cleanCenterName = (name) => {
+    return name.replace('45 YEARS', '').replace('18 YEARS', '').replace('18 TO 44 YEARS', '').replace('18 YEAR', '')
 }
 
 // TODO -Optimise the two createDetail methods

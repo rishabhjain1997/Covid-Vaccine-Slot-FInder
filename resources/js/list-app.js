@@ -28,26 +28,18 @@ if (!isRequestValid) {
     location.assign('/index.html')
 }
 
+//Populate calendar list elements
+createCalendar(context)
 
-// Create unordered list
+// Populate nav search elements
 if (context.isTypePincode) {
-
-    //Fix nav 
     togglePincode(showPincode = true)
     createStateDropdown()
     pincodeTextboxEl.value = context.pincode
-
-
-    createListByPincode(pincode = context.pincode, context)
-
 } else {
-
-    // Fix nav dropdown
     togglePincode(showPincode = false)
     createStateDropdown(context.state)
     createDistrictDropdown(context.state, context.district)
-
-    createListByDistrict(context.district, context)
 }
 
 // Event listeners
@@ -75,7 +67,7 @@ stateDropdownEl.addEventListener('change', (e) => {
 districtDropdownEl.addEventListener('change', (e) => {
     context.district = e.target.value
     context.isTypePincode = false
-    createListByDistrict(e.target.value, context)
+    createCalendar(context)
 
 })
 
@@ -89,7 +81,7 @@ pincodeTextboxEl.addEventListener('input', (e) => {
         context.pincode = updatedPin
         context.isTypePincode = true
         context.pincode = updatedPin
-        createListByPincode(pincode = context.pincode, context)
+        createCalendar(context)
     }
 
 })
