@@ -41,22 +41,12 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     margin: 20px;
     border-radius: 5px;
+    text-decoration: none;
+    color: black;
 }
 
 
 /* CARD Child Divs */
-
-.availability-info {
-    margin-left: auto;
-    max-width: 80px;
-    width: 20%;
-    background-color: rgb(139, 194, 73);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
 
 .center-info {
     flex: 1;
@@ -68,11 +58,65 @@ body {
     line-height: 140%;
 }
 
+.availability-info {
+    margin-left: auto;
+    max-width: 80px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
 
 /* Availability */
 
+.availability-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
 .availability-text {
+    align-self: center;
     color: white;
+    font-size: 90%;
+}
+
+.availability-box.grey-background {
+    background: rgb(157, 157, 157);
+}
+
+.availability-box.yellow-background {
+    background: rgb(221, 169, 0);
+    border-bottom-right-radius: 0;
+}
+
+.availability-box.green-background {
+    background: rgb(139, 194, 73);
+    border-bottom-right-radius: 0;
+}
+
+.booking-link {
+    font-size: 80%;
+    text-align: center;
+    color: #fff;
+    padding: 7px 0;
+}
+
+.booking-link.yellow-background {
+    background: rgb(173, 133, 0);
+    border-bottom-right-radius: 5px;
+}
+
+.booking-link.green-background {
+    background: rgb(110, 153, 58);
+    border-bottom-right-radius: 5px;
 }
 
 

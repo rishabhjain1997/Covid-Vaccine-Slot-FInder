@@ -102,9 +102,6 @@ const isPincodeSelected = () => {
 
 const createCalendar = async(context) => {
 
-
-
-
     const currentDate = moment()
 
     if (context.isTypePincode) {
@@ -122,20 +119,19 @@ const createCalendar = async(context) => {
     //Create array for the next 7 days
     const calendarListEl = document.querySelector('#calendar')
     calendarListEl.innerHTML = ''
-        // Create array of all available vaccination sessions
+
+    // Create array of all available vaccination sessions
     let sessions = []
     for (center of data['centers']) {
 
         sessions.push(center.sessions)
 
     }
-
-    //This is where we should add filters
     sessions = sessions.flat()
 
     // Append session data to unordered list
     for (date of upcomingWeekDates) {
-        const dateEl = generateDateDOM(sessions, date, context)
+        const dateEl = generateCalendarDateDOM(sessions, date, context)
         calendarListEl.appendChild(dateEl)
 
     }
@@ -145,7 +141,7 @@ const createCalendar = async(context) => {
 
 
 
-const generateDateDOM = (sessions, date, context) => {
+const generateCalendarDateDOM = (sessions, date, context) => {
     let filteredSessions = sessions.filter((session) => (session.date === date))
     let availableCapacity
     try {
@@ -223,16 +219,18 @@ const filterSession = (sessions, dateSelected) => {
 
 const generateCenterDOM = (center, dateSelected) => {
     /*
-    cardEl> availabilityInfoEl> availabilityTextEl 
-            centerInfoEl> centerNameEl
-                          minAgeEl
-                          vaccineNameEl
-                          address> centerBlockNameEl
-                                   centerPincodeEl
+    cardEl> availabilityInfoEl> availabilityBoxEl >availabilityTextEl 
+                              > bookingLinkEl
+            centerInfoEl>       centerNameEl
+                                minAgeEl
+                                vaccineNameEl
+                                address>           centerBlockNameEl
+                                                   centerPincodeEl
             
     */
 
-    const cardEl = document.createElement('div')
+    const cardEl = document.createElement('a')
+    const availabilityBoxEl = document.createElement('div')
     const addressEl = document.createElement('div')
     const availabilityInfoEl = document.createElement('div')
     const availabilityTextEl = document.createElement('p')
@@ -242,8 +240,10 @@ const generateCenterDOM = (center, dateSelected) => {
     const centerPincodeEl = document.createElement('p')
     const minAgeEl = document.createElement('p')
     const vaccineNameEl = document.createElement('p')
+    const bookingLinkEl = document.createElement('p')
 
     // Add CSS names
+    availabilityBoxEl.classList.add('availability-box')
     cardEl.classList.add('card')
     availabilityInfoEl.classList.add('availability-info')
     addressEl.classList.add('address')
@@ -254,9 +254,11 @@ const generateCenterDOM = (center, dateSelected) => {
     centerPincodeEl.classList.add('center-pincode')
     minAgeEl.classList.add('min-age')
     vaccineNameEl.classList.add('vaccine-name')
+    bookingLinkEl.classList.add('booking-link')
 
     // Create hierarchy
-    availabilityInfoEl.appendChild(availabilityTextEl)
+    availabilityInfoEl.appendChild(availabilityBoxEl)
+    availabilityBoxEl.appendChild(availabilityTextEl)
     centerInfoEl.appendChild(centerNameEl)
     if (center.block_name !== 'Not Applicable') {
         addressEl.appendChild(centerBlockNameEl)
@@ -270,19 +272,43 @@ const generateCenterDOM = (center, dateSelected) => {
 
 
     // Populate text
+    bookingLinkEl.textContent = 'Book on Cowin'
     centerNameEl.textContent = cleanCenterName(center.name)
     centerBlockNameEl.textContent = `${center.block_name}, `
     centerPincodeEl.textContent = center.pincode
     const filteredSession = filterSession(center.sessions, dateSelected)[0]
-    availabilityTextEl.textContent = (filteredSession.available_capacity > 0) ? `${filteredSession.available_capacity} slots` : 'No slots'
+
     minAgeEl.textContent = `${filteredSession.min_age_limit}+`
     vaccineNameEl.textContent = `Vaccine: ${filteredSession.vaccine}`
+
+    if (filteredSession.available_capacity === 0) {
+        availabilityTextEl.textContent = `No slots`
+        availabilityBoxEl.classList.add('grey-background')
+
+
+    } else if (filteredSession.available_capacity < 10) {
+        availabilityTextEl.textContent = `${filteredSession.available_capacity} slots`
+        availabilityBoxEl.classList.add('yellow-background')
+        availabilityInfoEl.appendChild(bookingLinkEl)
+        bookingLinkEl.classList.add('yellow-background')
+        cardEl.href = 'https://www.cowin.gov.in/'
+
+    } else {
+        availabilityTextEl.textContent = `${filteredSession.available_capacity} slots`
+        availabilityBoxEl.classList.add('green-background')
+        availabilityInfoEl.appendChild(bookingLinkEl)
+        bookingLinkEl.classList.add('green-background')
+        cardEl.href = 'https://www.cowin.gov.in/'
+    }
+
+
+
 
     return cardEl
 }
 
 const cleanCenterName = (name) => {
-    return name.replace('45 YEARS', '').replace('18 YEARS', '').replace('18 TO 44 YEARS', '').replace('18 YEAR', '')
+    return name.replace('45 YEARS', '').replace('18 YEARS', '').replace('18 TO 44 YEARS', '').replace('18 YEAR', '').replace('18 Years', '').replace('45 YEAR', '')
 }
 
 // TODO -Optimise the two createDetail methods
