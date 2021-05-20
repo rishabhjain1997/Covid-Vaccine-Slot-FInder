@@ -115,6 +115,7 @@ const createCalendar = async(context) => {
     calendarListEl.innerHTML = ''
 
     // Create array of all available vaccination sessions
+    // TODO -This is where we add the filters
     let sessions = []
     for (center of data['centers']) {
 
@@ -195,21 +196,45 @@ const generateCalendarDateDOM = (sessions, date, context) => {
 }
 
 const omitNaN = (obj) => {
-        if (obj) {
-            return obj
-        } else {
-            return ''
-        }
+    if (obj) {
+        return obj
+    } else {
+        return ''
     }
-    // TODO Remove dateSelected and move to filter
+}
+
 const filterCenter = (center, filter) => {
+    if(filter['search-text'] && !center.name.toLowerCase().includes(filter['search-text'].toLowerCase()))
+    {
+        return false
+    }    
     return (filterSession(center.sessions, filter)).length > 0
 }
 
 const filterSession = (sessions, filter) => {
-    return sessions.filter((session) => (session.date === filter.date))
+    let filteredSession 
+    filteredSession = sessions.filter((session) => (session.date === filter.date))
+    filteredSession = filteredSession.filter((session) => (session['available_capacity'] > 0))
+    if (filter['dose'])
+    {let doseKey = filter['dose'] === '1' ? 'available_capacity_dose1' : 'available_capacity_dose2'
+    filteredSession = filteredSession.filter((session) => (session[doseKey] > 0))
+    }
+    if (filter['age'])
+    {   
+        const ageCategory = parseInt(filter['age'])
+        filteredSession = filteredSession.filter((session) => (session.min_age_limit === ageCategory))
+    }
+
+    if (filter['vaccine'])
+    {
+        filteredSession = filteredSession.filter((session) => (session.vaccine === filter['vaccine'].toUpperCase()))
+    }
+    return filteredSession
 }
 
+const cleanCenterName = (name) => {
+    return name.replace('45 YEARS', '').replace('18 YEARS', '').replace('18 TO 44 YEARS', '').replace('18 YEAR', '').replace('18 Years', '').replace('45 YEAR', '')
+}
 
 const generateCenterDOM = (center, filter) => {
     /*
@@ -264,8 +289,7 @@ const generateCenterDOM = (center, filter) => {
     cardEl.appendChild(centerInfoEl)
     cardEl.appendChild(availabilityInfoEl)
 
-
-    // Populate text
+    // Populate text    
     bookingLinkEl.textContent = 'Book on Cowin'
     centerNameEl.textContent = cleanCenterName(center.name)
     centerBlockNameEl.textContent = `${center.block_name}, `
@@ -274,21 +298,22 @@ const generateCenterDOM = (center, filter) => {
 
     minAgeEl.textContent = `${filteredSession.min_age_limit}+`
     vaccineNameEl.textContent = `Vaccine: ${filteredSession.vaccine}`
-
-    if (filteredSession.available_capacity === 0) {
+    // TODO - Put in function and call for specific doses
+    if (availableCapacity(filteredSession,filter) === 0) {
         availabilityTextEl.textContent = `No slots`
         availabilityBoxEl.classList.add('grey-background')
 
 
-    } else if (filteredSession.available_capacity < 10) {
-        availabilityTextEl.textContent = `${filteredSession.available_capacity} slots`
+    } else if (availableCapacity(filteredSession,filter) < 10) {
+        availabilityTextEl.textContent = `${availableCapacity(filteredSession,filter)} slots`
         availabilityBoxEl.classList.add('yellow-background')
         availabilityInfoEl.appendChild(bookingLinkEl)
         bookingLinkEl.classList.add('yellow-background')
         cardEl.href = 'https://www.cowin.gov.in/'
 
     } else {
-        availabilityTextEl.textContent = `${filteredSession.available_capacity} slots`
+        availabilityTextEl.textContent = `${availableCapacity(filteredSession,filter)} slots`
+        availableCapacity(filteredSession, filter)
         availabilityBoxEl.classList.add('green-background')
         availabilityInfoEl.appendChild(bookingLinkEl)
         bookingLinkEl.classList.add('green-background')
@@ -296,12 +321,15 @@ const generateCenterDOM = (center, filter) => {
     }
     return cardEl
 }
-
-const cleanCenterName = (name) => {
-    return name.replace('45 YEARS', '').replace('18 YEARS', '').replace('18 TO 44 YEARS', '').replace('18 YEAR', '').replace('18 Years', '').replace('45 YEAR', '')
+const availableCapacity = (session, filter) => {
+    if(filter['dose'])
+    {
+        return session[`available_capacity_dose${filter['dose']}`]
+    }
+    else {
+        return session['available_capacity']
+    }
 }
-
-
 const createAppointmentList = async(context, filter) => {
 
     const data = await getData(context)
@@ -313,16 +341,28 @@ const createAppointmentList = async(context, filter) => {
 const renderAppointments = async(data, filter) => {
 
     const appointmentListEl = document.querySelector('#appointments')
+    const dataTextEl = document.querySelector('.date-text')
     appointmentListEl.innerHTML = ''
+    dataTextEl.innerHTML = ''
+    appointmentListEl.classList.remove('no-slots-container')
+    
+    dataTextEl.textContent = moment(filter.date, "DD-MM-YYYY").format('MMM DD, dddd')
 
     for (center of data['centers']) {
-
+        
         if (filterCenter(center, filter)) {
-
             const cardEl = generateCenterDOM(center, filter)
             appointmentListEl.appendChild(cardEl)
 
         }
+    }
+    if(!appointmentListEl.innerHTML)
+    {
+        const noSlotsAvailableTextEl = document.createElement('p')
+        noSlotsAvailableTextEl.textContent = 'Sorry :( No slots available'
+        noSlotsAvailableTextEl.classList.add('no-slots-text')
+        appointmentListEl.appendChild(noSlotsAvailableTextEl)
+        appointmentListEl.classList.add('no-slots-container')
     }
 }
 

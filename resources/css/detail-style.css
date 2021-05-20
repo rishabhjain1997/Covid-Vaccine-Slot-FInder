@@ -18,11 +18,28 @@ body {
     align-items: center;
 }
 
-
+/* DATE NAV */
+.date-navigation {
+    display: flex;
+    margin: 8px 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+.date-navigation span{
+    font-size: 85%;
+}
 /* MAIN LAYOUT */
 
+ h3 {
+    font-size: 95%;
+    margin: 5px 20px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-top: 10px;
+} 
+
 .main-layout {
-    background: transparent;
+    background: white;
     max-width: 700px;
     width: 100%;
     display: flex;
@@ -33,7 +50,38 @@ body {
     min-height: 100vh;
 }
 
+/* FILTERS */
+.dropdowns {
+    margin: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.dropdowns select {
+    padding: 7px 0;
+    padding-left: 5px;
+    
+    border: 1px solid rgb(192, 192, 192);
+    background: white;
+    border-radius: 4px;
+    width: 30%;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    
+    
+}
 
+#textbox-hospital {
+    padding: 8px 0;
+    padding-left: 5px;
+    border: 1px solid rgb(192, 192, 192);
+    background: white;
+    border-radius: 4px;
+    flex: 1;
+    
+}
+.textboxes {
+    margin: 10px 20px;
+    display: flex;
+}
 /* CARD */
 
 .card {
@@ -152,4 +200,28 @@ body {
 
 .center-block-name {
     margin-right: 5px;
+}
+
+/*No slots*/
+
+.no-slots-text {
+    height: 100%;
+}
+
+.no-slots-container {
+    margin-bottom: auto;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(168, 168, 168);
+    color:rgb(78, 78, 78);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    font-size: 150%;
+
+}
+
+/* UL */
+#appointments {
+    margin-bottom: auto;
 }

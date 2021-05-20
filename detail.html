@@ -3,12 +3,41 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/detail-style.css">
 </head>
 
 <body>
     <div class='main-layout'>
+        <div class='date-navigation'>
+            <span class="material-icons previous-date">arrow_back_ios</span>
+            <p class='date-text'></p>
+            <span class="material-icons next-date">arrow_forward_ios</span>
+        </div>
+        <h3>Filters</h3>
+        <div class='dropdowns'>
+            <select name="dose" id="dose-dropdown">
+                <option value="" disabled selected>Dose</option>
+                <option value="1">Dose 1</option>
+                <option value="2">Dose 2</option>
+            </select>
+
+            <select name="age" id="age-dropdown">
+                <option value="" disabled selected>Age</option>
+                <option value="18">18-45</option>
+                <option value="45">45+</option>
+            </select>
+
+            <select name="vaccine" id="vaccine-dropdown">
+                <option value="" disabled selected>Vaccine</option>
+                <option value="Covishield">Covishield</option>
+                <option value="Covaxin">Covaxin</option>
+            </select>
+
+        </div>
+        <div class='textboxes'>
+            <input type="text" placeholder="Search by Hospital Name" value="" name="hospital" id="textbox-hospital" class="">
+        </div>
         <ul id='appointments'>
 
         </ul>
