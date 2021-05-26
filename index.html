@@ -16,7 +16,7 @@
         <div class='description'>
             <h4>Created by Rishabh</h4>
             <h5>Win your way through the pandemic</h5>
-            <p>Search for vaccination slots • Get notified when available on Whatsapp</p>
+            <p>Search for vaccination slots</p>
         </div>
         <form id='form-location'>
             <div class='selector-buttons'>
@@ -34,12 +34,60 @@
             </div>
             <input type='submit' class='btn--submit' value='Search slots'>
         </form>
+        <div id="recaptcha-container"></div>
+        <form id='authentication-form' class='form-inputs'>
+            <p>Sign up for instant alerts on WhatsApp and email</p>
+
+            <input type="text" placeholder="Name" class="form-input" id="name" name="name" required>
+            <input type="email" placeholder="Email" class="form-input" id="email" name="email" required>
+            <input type="number" placeholder="Phone Number" class="form-input" id="phone_number" name="phoneNumber" min="1000000000" max="9999999999">
+            <select name='region' id='region-dropdown' class='dropdown-search'>
+                <option value="" class='option-placeholder' disabled selected>Select region</option>
+                <option value="Gautam Buddh Nagar">Noida</option>
+                <option value="Gurgaon">Gurgaon</option>
+                <option value="Delhi">Delhi</option>
+            </select>
+            <input type="submit" class='btn--submit' id="notification--submit" value="Add">
+        </form>
+        <form id='otp-form' class='form-inputs'>
+            <input type="number" placeholder="Enter OTP" class="form-input" id="otp" name="otp">
+            <input type="submit" class='btn--submit' id="otp--submit" value="Submit">
+        </form>
+        <p class='confirmation-message'>Thanks for registering with us. Check WhatsApp for vaccine updates in your city.</p>
+
     </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-database.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDoWD4j6BMxym-I_ZvLVHlPqg_CK0iZueE",
+            authDomain: "cowinner-20464.firebaseapp.com",
+            databaseURL: "https://cowinner-20464-default-rtdb.asia-southeast1.firebasedatabase.app/",
+            projectId: "cowinner-20464",
+            storageBucket: "cowinner-20464.appspot.com",
+            messagingSenderId: "213466131461",
+            appId: "1:213466131461:web:1b17684cadcc3cfb9ec06c",
+            measurementId: "G-LP2KVREQBS"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
 <script src="resources/js/requests.js"></script>
 <script src="resources/js/functions.js"></script>
 <script src="resources/js/app.js"></script>
+<script src="resources/js/notification-functions.js"></script>
+<script src="resources/js/notification-app.js"></script>
+
 
 </html>
