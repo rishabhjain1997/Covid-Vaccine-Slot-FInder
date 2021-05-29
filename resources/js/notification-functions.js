@@ -3,7 +3,7 @@ const displayConfirmation = () => {
     const confirmationMessageEl = document.querySelector('.confirmation-message')
     const otpFormEl = document.querySelector('#otp-form')
     notificationFormEl.style.display = 'none';
-    confirmationMessageEl.style.display = 'block';
+    confirmationMessageEl.style.display = 'flex';
     otpFormEl.style.display = 'none';
 
 

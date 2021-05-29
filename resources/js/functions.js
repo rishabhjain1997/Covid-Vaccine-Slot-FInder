@@ -204,29 +204,26 @@ const omitNaN = (obj) => {
 }
 
 const filterCenter = (center, filter) => {
-    if(filter['search-text'] && !center.name.toLowerCase().includes(filter['search-text'].toLowerCase()))
-    {
+    if (filter['search-text'] && !center.name.toLowerCase().includes(filter['search-text'].toLowerCase())) {
         return false
-    }    
+    }
     return (filterSession(center.sessions, filter)).length > 0
 }
 
 const filterSession = (sessions, filter) => {
-    let filteredSession 
+    let filteredSession
     filteredSession = sessions.filter((session) => (session.date === filter.date))
     filteredSession = filteredSession.filter((session) => (session['available_capacity'] > 0))
-    if (filter['dose'])
-    {let doseKey = filter['dose'] === '1' ? 'available_capacity_dose1' : 'available_capacity_dose2'
-    filteredSession = filteredSession.filter((session) => (session[doseKey] > 0))
+    if (filter['dose']) {
+        let doseKey = filter['dose'] === '1' ? 'available_capacity_dose1' : 'available_capacity_dose2'
+        filteredSession = filteredSession.filter((session) => (session[doseKey] > 0))
     }
-    if (filter['age'])
-    {   
+    if (filter['age']) {
         const ageCategory = parseInt(filter['age'])
         filteredSession = filteredSession.filter((session) => (session.min_age_limit === ageCategory))
     }
 
-    if (filter['vaccine'])
-    {
+    if (filter['vaccine']) {
         filteredSession = filteredSession.filter((session) => (session.vaccine === filter['vaccine'].toUpperCase()))
     }
     return filteredSession
@@ -298,18 +295,18 @@ const generateCenterDOM = (center, filter) => {
 
     minAgeEl.textContent = `${filteredSession.min_age_limit}+`
     vaccineNameEl.textContent = `Vaccine: ${filteredSession.vaccine}`
-    // TODO - Put in function and call for specific doses
-    if (availableCapacity(filteredSession,filter) === 0) {
+        // TODO - Put in function and call for specific doses
+    if (availableCapacity(filteredSession, filter) === 0) {
         availabilityTextEl.textContent = `No slots`
         availabilityBoxEl.classList.add('grey-background')
 
 
-    } else if (availableCapacity(filteredSession,filter) < 10) {
+    } else if (availableCapacity(filteredSession, filter) < 10) {
         availabilityTextEl.textContent = `${availableCapacity(filteredSession,filter)} slots`
         availabilityBoxEl.classList.add('yellow-background')
         availabilityInfoEl.appendChild(bookingLinkEl)
         bookingLinkEl.classList.add('yellow-background')
-        cardEl.href = 'https://www.cowin.gov.in/'
+        cardEl.href = 'https://www.cowin.gov.in/home'
 
     } else {
         availabilityTextEl.textContent = `${availableCapacity(filteredSession,filter)} slots`
@@ -317,16 +314,14 @@ const generateCenterDOM = (center, filter) => {
         availabilityBoxEl.classList.add('green-background')
         availabilityInfoEl.appendChild(bookingLinkEl)
         bookingLinkEl.classList.add('green-background')
-        cardEl.href = 'https://www.cowin.gov.in/'
+        cardEl.href = 'https://www.cowin.gov.in/home'
     }
     return cardEl
 }
 const availableCapacity = (session, filter) => {
-    if(filter['dose'])
-    {
+    if (filter['dose']) {
         return session[`available_capacity_dose${filter['dose']}`]
-    }
-    else {
+    } else {
         return session['available_capacity']
     }
 }
@@ -345,19 +340,18 @@ const renderAppointments = async(data, filter) => {
     appointmentListEl.innerHTML = ''
     dataTextEl.innerHTML = ''
     appointmentListEl.classList.remove('no-slots-container')
-    
+
     dataTextEl.textContent = moment(filter.date, "DD-MM-YYYY").format('MMM DD, dddd')
 
     for (center of data['centers']) {
-        
+
         if (filterCenter(center, filter)) {
             const cardEl = generateCenterDOM(center, filter)
             appointmentListEl.appendChild(cardEl)
 
         }
     }
-    if(!appointmentListEl.innerHTML)
-    {
+    if (!appointmentListEl.innerHTML) {
         const noSlotsAvailableTextEl = document.createElement('p')
         noSlotsAvailableTextEl.textContent = 'Sorry :( No slots available'
         noSlotsAvailableTextEl.classList.add('no-slots-text')

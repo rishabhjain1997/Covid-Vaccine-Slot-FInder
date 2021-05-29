@@ -10,7 +10,7 @@
 
 body {
     background: linear-gradient(0deg, #e9bcb7c5, #29524ac2), url('https://images.unsplash.com/photo-1608451643043-6a8eebc527ee?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
-    height: 100vh;
+    min-height: 100vh;
     background-size: cover;
     font-family: Roboto, sans-serif;
     display: flex;
@@ -164,4 +164,25 @@ li a p:first-child {
 
 .green-text {
     color: rgb(0, 163, 0);
+}
+
+
+/* media query */
+
+@media screen and (max-width: 480px) {
+    .main-layout {
+        height: 100%;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        justify-content: center;
+    }
+    body {
+        background: white;
+    }
+    header {
+        font-size: 130%;
+        margin-top: 10px;
+        margin-bottom: auto;
+    }
 }

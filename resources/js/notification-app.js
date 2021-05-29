@@ -73,11 +73,12 @@ notificationFormEl.addEventListener("submit", function(e) {
     const phoneNumber = '+91'.concat(number.toString())
 
     const appVerifier = window.recaptchaVerifier
-
+        // TODO - call recaptchaVerifier in hidden element in OTP
+    displayOtpForm()
     firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
         .then((confirmationResult) => {
                 // SMS sent
-                displayOtpForm()
+
                 window.confirmationResult = confirmationResult
                 user = new User(fullName, email, number, region)
             },

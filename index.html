@@ -4,18 +4,20 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="shortcut icon" type="image/jpg" href="resources/img/syringe_favicon.png" />
     <title>CoWinner</title>
 </head>
 
 <body>
     <div class='main-layout'>
         <div class='heading'>
-            <img class='logo' alt='logo' src='resources/img/icon.png'>
+            <!--<img class='logo' alt='logo' src='resources/img/icon.png'>-->
+            <img class='logo' alt='logo' src='resources/img/syringe.png'>
             <h1>CoWinner</h1>
         </div>
 
         <div class='description'>
-            <h4>Created by Rishabh</h4>
+            <!--<h4>Created by Rishabh</h4>-->
             <h5>Win your way through the pandemic</h5>
             <p>Search for vaccination slots</p>
         </div>
@@ -36,29 +38,49 @@
             <input type='submit' class='btn--submit' value='Search slots'>
         </form>
         <div id="recaptcha-container"></div>
+        <div class='or-seperator-container'>
+            <span class='line'></span>
+            <p class='or_text'>OR</p>
+            <span class='line'></span>
+        </div>
         <form id='authentication-form' class='form-inputs'>
-            <p>Sign up for instant alerts on WhatsApp and email</p>
+            <p>Sign up for instant alerts on WhatsApp</p>
 
             <input type="text" placeholder="Name" class="form-input" id="name" name="name" required>
             <input type="email" placeholder="Email" class="form-input" id="email" name="email" required>
-            <input type="number" placeholder="Phone Number" class="form-input" id="phone_number" name="phoneNumber" min="1000000000" max="9999999999">
+            <input type="tel" placeholder="Whatsapp Number" class="form-input" id="phone_number" name="phoneNumber" pattern="[0-9]{10}" title="Please enter 10-digit whatsapp number" required="">
             <select name='region' id='region-dropdown' class='dropdown-search'>
                 <option value="" class='option-placeholder' disabled selected>Select region</option>
                 <option value="Gautam Buddh Nagar">Noida</option>
                 <option value="Gurgaon">Gurgaon</option>
                 <option value="Delhi">Delhi</option>
             </select>
-            <input type="submit" class='btn--submit' id="notification--submit" value="Add">
+            <input type="submit" class='btn--submit' id="notification--submit" value="Submit">
         </form>
         <form id='otp-form' class='form-inputs'>
             <input type="number" placeholder="Enter OTP" class="form-input" id="otp" name="otp">
             <input type="submit" class='btn--submit' id="otp--submit" value="Submit">
         </form>
-        <p class='confirmation-message'>Thanks for registering with us. Check WhatsApp for vaccine updates in your city.</p>
 
+        <div class='confirmation-message'>
+            <p> Almost done! </p>
+            <p>Please send us a Whatsapp text using the QR code or WA button to get started.</p>
+            <div class='wa-links'>
+                <div class='qr_container'>
+                    <img class='qr_image' alt='QR code' src='resources/img/qr_code.png'>
+                    <p>Scan QR</p>
+                </div>
+                <div class='wa_link_container'>
+                    <a href="https://wa.link/mhq8yd">
+                        <img class='wa_image' alt='Whatsapp Image' src='resources/img/whatsapp.png'>
+                    </a>
+                    <p>Redirect to WhatsApp</p>
+                </div>
+            </div>
+        </div>
     </div>
-
-
+    <!--Remove in a few days for Hari-->
+    <script data-ad-client="ca-pub-8262369747779436" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
