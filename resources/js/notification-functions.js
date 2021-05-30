@@ -32,3 +32,56 @@ const displayNotificationForm = () => {
 
 
 }
+
+
+const addUserToFirebase = (user, regionToDistrictMap) => {
+    let userInfo = {
+        username: user.name,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        uid: user.uid
+    }
+    let region = {
+        [user.region]: "true"
+    }
+
+    const districts = regionToDistrictMap[user.region]
+    const userRef = firebase.database().ref('users/' + user.phoneNumber)
+    userRef.on('value', (snapshot) => {
+        const data = snapshot.val()
+        if (data) {
+            let updates = {}
+            for (districtId in districts) {
+                updates['users/' + user.phoneNumber + '/regions/' + districts[districtId].toString()] = region
+            }
+
+            firebase.database().ref().update(updates)
+        } else {
+            firebase.database().ref('users/' + user.phoneNumber).set(userInfo)
+            let updates = {}
+            for (districtId in districts) {
+                updates['users/' + user.phoneNumber + '/regions/' + districts[districtId].toString()] = region
+            }
+
+            firebase.database().ref().update(updates)
+        }
+
+    })
+
+}
+
+const updateRegionInFirebase = (user, regionToDistrictMap) => {
+    if (user.region) {
+        const updates = {}
+        const districts = regionToDistrictMap[user.region]
+        for (districtId in districts) {
+            updates['regions/' + districts[districtId].toString() + '/users/' + user.phoneNumber] = {
+                [user.phoneNumber]: "true"
+            }
+        }
+
+        firebase.database().ref().update(updates);
+
+    }
+
+}

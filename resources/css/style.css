@@ -68,7 +68,7 @@
     }
     
     .description h5 {
-        width: fit-content;
+        width: max-content;
         margin-top: 20px;
         padding-bottom: 14px;
         font-size: 80%;
@@ -164,7 +164,7 @@
     }
     
     p.or_text {
-        width: fit-content;
+        width: max-content;
         margin: 0 4px;
         font-size: 110%;
     }
