@@ -47,8 +47,11 @@ notificationFormEl.addEventListener("submit", function(e) {
 
             (error) => {
                 window.recaptchaVerifier.render().then(function(widgetId) { grecaptcha.reset(widgetId) })
-                alert('We could not send an SMS, redirecting...')
-                console.log(error)
+                if (error.message) {
+                    alert(error.message)
+                } else {
+                    alert('We could not send an SMS, redirecting...')
+                }
                 displayNotificationForm()
             })
 })
@@ -60,17 +63,22 @@ const regionToDistrictMap = {
 otpFormEl.addEventListener("submit", function(e) {
     e.preventDefault()
     const code = e.target.elements.otp.value
-    confirmationResult.confirm(code).then((result) => {
+    window.confirmationResult.confirm(code).then((result) => {
             // User signed in successfully.
+            displayConfirmation()
             const loggedInUser = result.user;
             user['uid'] = loggedInUser.uid
             addUserToFirebase(user, regionToDistrictMap)
             updateRegionInFirebase(user, regionToDistrictMap)
-            displayConfirmation()
         },
 
         (error) => {
+            if (error.message) {
+                alert(error.message)
+            } else {
+                alert('Incorrect verification code')
+            }
             console.log(error)
-            alert('Incorrect verification code')
+
         })
 })

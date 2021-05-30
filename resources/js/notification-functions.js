@@ -49,22 +49,17 @@ const addUserToFirebase = (user, regionToDistrictMap) => {
     const userRef = firebase.database().ref('users/' + user.phoneNumber)
     userRef.on('value', (snapshot) => {
         const data = snapshot.val()
-        if (data) {
-            let updates = {}
-            for (districtId in districts) {
-                updates['users/' + user.phoneNumber + '/regions/' + districts[districtId].toString()] = region
-            }
-
-            firebase.database().ref().update(updates)
-        } else {
+        if (!data) {
             firebase.database().ref('users/' + user.phoneNumber).set(userInfo)
-            let updates = {}
-            for (districtId in districts) {
-                updates['users/' + user.phoneNumber + '/regions/' + districts[districtId].toString()] = region
-            }
 
-            firebase.database().ref().update(updates)
         }
+
+        let updates = {}
+        for (districtId in districts) {
+            updates['users/' + user.phoneNumber + '/regions/' + districts[districtId].toString()] = region
+        }
+
+        firebase.database().ref().update(updates)
 
     })
 
