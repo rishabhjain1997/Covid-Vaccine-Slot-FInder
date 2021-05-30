@@ -179,10 +179,18 @@ li a p:first-child {
     }
     body {
         background: white;
+        justify-content: flex-start;
     }
     header {
         font-size: 130%;
-        margin-top: 10px;
-        margin-bottom: auto;
+        margin-top: 13px;
+        margin-bottom: 30px;
+    }
+    li {
+        padding: 20px;
+    }
+    .btn-search,
+    .btn-search--selected {
+        padding: 7px 14px;
     }
 }

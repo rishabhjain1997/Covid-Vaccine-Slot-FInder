@@ -380,3 +380,28 @@ const getData = async(context, dateSelected = null) => {
 
     return data
 }
+
+
+// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+function stickyHeaderOnScroll() {
+
+    // Get the offset position of the navbar
+    var sticky = headerEl.offsetTop;
+
+    if (window.pageYOffset > sticky) {
+        headerEl.classList.add("fixed_header");
+    } else {
+        headerEl.classList.remove("fixed_header");
+    }
+}
+
+
+createDetailPageTitle = async(context, pageTitleEl) => {
+    if (context.isTypePincode) {
+        pageTitleEl.textContent = "Pincode " + context.pincode
+    } else {
+        const districts = await getDistrictByState(context.state)
+        const districtName = districts.filter((district) => (district.district_id === context.district))[0].district_name
+        pageTitleEl.textContent = districtName
+    }
+}

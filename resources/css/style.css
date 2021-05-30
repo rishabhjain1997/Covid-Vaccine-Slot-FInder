@@ -207,11 +207,12 @@
     }
     
     .confirmation-message>p {
-        margin: 4px 10px 10px 10px;
+        margin: 20px 10px 10px 10px;
     }
     
     .confirmation-message>p:last-of-type {
         margin-bottom: 20px;
+        margin-top: 4px;
     }
     
     .wa-links {
