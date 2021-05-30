@@ -15,45 +15,7 @@ class User {
 
 }
 
-function addUserToFirebase(user) {
-    let userInfo = {
-        username: user.name,
-        email: user.email,
-        phoneNumber: user.phoneNumber,
-        uid: user.uid
-    }
-    let region = {
-        [user.region]: "true"
-    }
 
-
-    const userRef = firebase.database().ref('users/' + user.phoneNumber)
-    userRef.on('value', (snapshot) => {
-        const data = snapshot.val()
-        if (data) {
-            let updates = {}
-            updates['users/' + user.phoneNumber + '/regions/' + user.region] = region
-            firebase.database().ref().update(updates)
-        } else {
-            firebase.database().ref('users/' + user.phoneNumber).set(userInfo)
-            firebase.database().ref('users/' + user.phoneNumber + '/regions').set(region)
-        }
-
-    })
-
-}
-
-function updateRegionInFirebase(user) {
-    if (user.region) {
-        const updates = {}
-        updates['regions/' + user.region + '/users/' + user.phoneNumber] = {
-            [user.phoneNumber]: "true"
-        }
-        firebase.database().ref().update(updates);
-
-    }
-
-}
 
 window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('notification--submit', {
     'size': 'invisible',
@@ -90,7 +52,11 @@ notificationFormEl.addEventListener("submit", function(e) {
                 displayNotificationForm()
             })
 })
-
+const regionToDistrictMap = {
+    'Delhi': [141, 145, 140, 146, 147, 143, 148, 149, 144, 150, 142],
+    'Gurgaon': [188],
+    'Noida': [650]
+}
 otpFormEl.addEventListener("submit", function(e) {
     e.preventDefault()
     const code = e.target.elements.otp.value
@@ -98,8 +64,8 @@ otpFormEl.addEventListener("submit", function(e) {
             // User signed in successfully.
             const loggedInUser = result.user;
             user['uid'] = loggedInUser.uid
-            addUserToFirebase(user)
-            updateRegionInFirebase(user)
+            addUserToFirebase(user, regionToDistrictMap)
+            updateRegionInFirebase(user, regionToDistrictMap)
             displayConfirmation()
         },
 
