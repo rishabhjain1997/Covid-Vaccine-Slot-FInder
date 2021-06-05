@@ -3,11 +3,12 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="resources/css/style.css">
+
     <link rel="shortcut icon" type="image/jpg" href="resources/img/syringe_favicon.png" />
     <title>CoWinner</title>
     <meta charset="UTF-8">
-    <script data-ad-client="ca-pub-1463921011836420" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <link rel="stylesheet" href="vendors/css/intlTelInput.css">
+    <link rel="stylesheet" href="resources/css/style.css">
 </head>
 
 <body>
@@ -49,7 +50,8 @@
 
             <input type="text" placeholder="Name" class="form-input" id="name" name="name" required>
             <input type="email" placeholder="Email" class="form-input" id="email" name="email" required>
-            <input type="tel" placeholder="Whatsapp Number" class="form-input" id="phone_number" name="phoneNumber" pattern="[0-9]{10}" title="Please enter 10-digit whatsapp number" required="">
+            <input type="tel" placeholder="Whatsapp Number" class="form-input" id="phone_number" name="phoneNumber" required="">
+
             <select name='region' id='region-dropdown' class='dropdown-search'>
                 <option value="" class='option-placeholder' disabled selected>Select region</option>
                 <option value="Noida">Noida</option>
@@ -80,11 +82,8 @@
             </div>
         </div>
     </div>
-    <!--Remove in a few days for Hari-->
-    <script data-ad-client="ca-pub-8262369747779436" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-database.js"></script>
@@ -109,6 +108,13 @@
     <script src="resources/js/app.js"></script>
     <script src="resources/js/notification-functions.js"></script>
     <script src="resources/js/notification-app.js"></script>
+    <script>
+        const phoneInputField = document.querySelector("#phone_number");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            preferredCountries: ["in"],
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+    </script>
 </body>
 
 </html>

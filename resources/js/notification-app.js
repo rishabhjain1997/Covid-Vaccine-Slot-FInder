@@ -30,30 +30,38 @@ notificationFormEl.addEventListener("submit", function(e) {
     console.log(e)
     const fullName = e.target.elements.name.value
     const email = e.target.elements.email.value
-    const number = e.target.elements.phoneNumber.value
     const region = e.target.elements.region.value
-    const phoneNumber = '+91'.concat(number.toString())
+    const phoneNumber = phoneInput.getNumber()
+    const isPhoneNumberValid = phoneInput.isValidNumber()
+    if (!isPhoneNumberValid) {
 
-    const appVerifier = window.recaptchaVerifier
-        // TODO - call recaptchaVerifier in hidden element in OTP
-    displayOtpForm()
-    firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-        .then((confirmationResult) => {
-                // SMS sent
+        alert('Invalid phone number, please try again')
+        location.reload()
 
-                window.confirmationResult = confirmationResult
-                user = new User(fullName, email, number, region)
-            },
 
-            (error) => {
-                window.recaptchaVerifier.render().then(function(widgetId) { grecaptcha.reset(widgetId) })
-                if (error.message) {
-                    alert(error.message)
-                } else {
-                    alert('We could not send an SMS, redirecting...')
-                }
-                displayNotificationForm()
-            })
+
+    } else {
+        const appVerifier = window.recaptchaVerifier
+            // TODO - call recaptchaVerifier in hidden element in OTP
+        displayOtpForm()
+        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+            .then((confirmationResult) => {
+                    // SMS sent
+
+                    window.confirmationResult = confirmationResult
+                    user = new User(fullName, email, phoneNumber, region)
+                },
+
+                (error) => {
+                    window.recaptchaVerifier.render().then(function(widgetId) { grecaptcha.reset(widgetId) })
+                    if (error.message) {
+                        alert(error.message)
+                    } else {
+                        alert('We could not send an SMS, redirecting...')
+                    }
+                    displayNotificationForm()
+                })
+    }
 })
 const regionToDistrictMap = {
     'Delhi': [141, 145, 140, 146, 147, 143, 148, 149, 144, 150, 142],
