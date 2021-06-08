@@ -5,16 +5,27 @@
 * {
     margin: 0;
     padding: 0;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 
 body {
     background-color: #e9bcb7;
+    background-image: -o-linear-gradient(135deg, #e9bcb7 0%, #29524a 74%);
     background-image: linear-gradient(315deg, #e9bcb7 0%, #29524a 74%);
     font-family: Roboto, sans-serif;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     min-height: 100vh;
 }
@@ -23,7 +34,11 @@ body {
 /* PAGE TITLE AND BACK BUTTON */
 
 .title-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin: 12px 20px;
     margin-bottom: 15px;
@@ -44,7 +59,12 @@ h2 {
 /* HEADER */
 
 header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     background-color: white;
 }
@@ -60,9 +80,15 @@ header {
 /* DATE NAV */
 
 .date-navigation {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin: 8px 20px;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -86,8 +112,15 @@ h3 {
     background: white;
     max-width: 700px;
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     padding-bottom: 1px;
     min-height: 100vh;
@@ -98,7 +131,11 @@ h3 {
 
 .dropdowns {
     margin: 10px 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
 }
 
@@ -109,6 +146,7 @@ h3 {
     background: white;
     border-radius: 4px;
     width: 30%;
+    -webkit-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -123,13 +161,19 @@ h3 {
     border: 1px solid rgb(192, 192, 192);
     background: white;
     border-radius: 4px;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
 }
 
 .textboxes {
     margin: 10px 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-bottom: 30px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     width: calc(100% - 15px);
 }
@@ -139,7 +183,10 @@ h3 {
 
 .card {
     background: transparent;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     margin: 20px;
     border-radius: 5px;
@@ -152,6 +199,8 @@ h3 {
 /* CARD Child Divs */
 
 .center-info {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
     background: white;
     padding: 10px;
@@ -165,9 +214,18 @@ h3 {
     margin-left: auto;
     max-width: 80px;
     width: 20%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -177,8 +235,14 @@ h3 {
 /* Availability */
 
 .availability-box {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     width: 100%;
     border-top-right-radius: 5px;
@@ -186,6 +250,7 @@ h3 {
 }
 
 .availability-text {
+    -ms-flex-item-align: center;
     align-self: center;
     color: white;
     font-size: 90%;
@@ -233,6 +298,8 @@ h3 {
     margin-top: 10px;
     font-size: 90%;
     border: 1px solid rgb(192, 192, 192);
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     padding: 2px 3px;
     border-radius: 5px;
@@ -247,7 +314,11 @@ h3 {
 /* ADDRESS */
 
 .address {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
     font-size: 93%;
 }
@@ -265,12 +336,21 @@ h3 {
 
 .no-slots-container {
     margin-bottom: auto;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     background-color: rgb(168, 168, 168);
     color: rgb(78, 78, 78);
+    -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     font-size: 150%;
 }
