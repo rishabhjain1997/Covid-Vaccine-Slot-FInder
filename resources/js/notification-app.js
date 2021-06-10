@@ -66,7 +66,11 @@ notificationFormEl.addEventListener("submit", function(e) {
 const regionToDistrictMap = {
     'Delhi': [141, 145, 140, 146, 147, 143, 148, 149, 144, 150, 142],
     'Gurgaon': [188],
-    'Noida': [650]
+    'Noida': [650],
+    'Mumbai': [395],
+    'Chennai': [571],
+    'Bangalore': [265, 276],
+    'Kolkata': [725]
 }
 otpFormEl.addEventListener("submit", function(e) {
     e.preventDefault()
