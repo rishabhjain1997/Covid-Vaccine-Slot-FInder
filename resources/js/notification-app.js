@@ -70,7 +70,19 @@ const regionToDistrictMap = {
     'Mumbai': [395],
     'Chennai': [571],
     'Bangalore': [265, 276],
-    'Kolkata': [725]
+    'Kolkata': [725],
+    'Hyderabad': [581],
+    'Ahmedabad': [154, 770],
+    'Pune': [363],
+    'Visakhapatnam': [8],
+    'Jodhpur': [502],
+    'Kanpur': [664],
+    'Surat': [165, 776],
+    'Patna': [97],
+    'Jaipur': [505, 506],
+    'Coimbatore': [539],
+    'Nagpur': [365],
+    'Madurai': [540]
 }
 otpFormEl.addEventListener("submit", function(e) {
     e.preventDefault()
