@@ -46,10 +46,8 @@
         -ms-flex-direction: column;
         flex-direction: column;
         padding: 10px;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
         justify-content: center;
-        margin: 20px;
+        margin: 0 20px;
     }
     /* HEADING */
     
@@ -360,6 +358,23 @@
     
     #otp-form {
         display: none;
+    }
+    /* FOOTER */
+    
+    .footer {
+        align-self: center;
+        margin: 0;
+        margin-bottom: 15px;
+    }
+    
+    .footer>p {
+        margin: 0;
+        margin-top: 10px;
+        width: 100%;
+    }
+    
+    .footer>p>a {
+        color: rgba(0, 0, 0, 1);
     }
     /* MEDIA QUERIES */
     
